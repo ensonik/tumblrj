@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tumblr version="1.0"><tumblelog name="marco" timezone="US/Eastern" cname="tumblelog.marco.org" title="Marco.org">I'm &lt;a href="http://www.marco.org/about"&gt;Marco Arment&lt;/a&gt;, a software engineer in New York. I don't like the term "software engineer", but we haven't come up with anything more accurate yet that isn't loaded or misleading. I write code to create websites that do useful things:
+&lt;br/&gt;&lt;br/&gt;
+
+I'm the lead developer of &lt;a href="http://www.tumblr.com/"&gt;Tumblr&lt;/a&gt;, the publishing community that powers this site.
+&lt;br/&gt;&lt;br/&gt;
+
+I also run &lt;a href="http://www.instapaper.com/"&gt;Instapaper&lt;/a&gt;, which makes it easy to save long pages for reading later.&lt;br/&gt;&lt;br/&gt;
+
+&lt;a href="http://givemesomethingtoread.com/"&gt;Give Me Something To Read&lt;/a&gt; is an almost-daily selection of interesting articles from Instapaper.&lt;br/&gt;&lt;br/&gt;
+
+&lt;b&gt;Feedback:&lt;/b&gt;&lt;br/&gt;
+I do not believe that public comments are beneficial here, but you can email me whenever you want: &lt;b&gt;me@marco.org&lt;/b&gt;
+
+&lt;script type="text/javascript"&gt;
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+&lt;/script&gt;
+&lt;script type="text/javascript"&gt;
+var pageTracker = _gat._getTracker("UA-638312-4");
+pageTracker._initData();
+pageTracker._trackPageview();
+&lt;/script&gt;<feeds><feed id="485" url="http://davidslog.com" import-type="link" next-update-in-seconds="47142" error="true" error-text="true"/></feeds></tumblelog>
+
+
+<posts start="0" total="4331">
+
+<post id="65237511" url="http://tumblelog.marco.org/65237511" type="link" date-gmt="2008-12-16 22:29:00 GMT" date="Tue, 16 Dec 2008 17:29:00" unix-timestamp="1229466540" bookmarklet="true">
+	<link-text>Apple Announces Its Last Year at Macworld</link-text>
+	<link-url>http://www.apple.com/pr/library/2008/12/16macworld.html</link-url>
+	<link-description>&lt;p&gt;(via &lt;a href="http://daringfireball.net/linked/2008/12/16/apple-macworld"&gt;John Gruber&lt;/a&gt;)&lt;/p&gt;
+	</link-description>
+</post>
+
+<post id="65174230" url="http://tumblelog.marco.org/65174230" type="quote" date-gmt="2008-12-16 15:48:00 GMT" date="Tue, 16 Dec 2008 10:48:00" unix-timestamp="1229442480" bookmarklet="true">
+	<quote-text>Pangea has been developing Mac games for over 20 years, but according to president &amp;amp; CEO Brian Greenstone, the company&amp;#8217;s App Store sales since July alone have brought in more revenue than the company&amp;#8217;s total retail sales over the last 20 years.</quote-text>
+	<quote-source>&lt;p&gt;&lt;a href="http://arstechnica.com/journals/apple.ars/2008/12/16/some-iphone-devs-raking-in-the-cash-from-the-app-store"&gt;Some iPhone devs raking in the cash from the App Store&lt;/a&gt;.&lt;/p&gt;
+	</quote-source>
+</post>
+
+<post id="65103516" url="http://tumblelog.marco.org/65103516" type="regular" date-gmt="2008-12-16 05:57:48 GMT" date="Tue, 16 Dec 2008 00:57:48" unix-timestamp="1229407068">
+	<regular-body>Tiff just learned that it&amp;#8217;s not wise to identify a jar of cayenne pepper via the usual spice-identification method of taking a huge whiff.</regular-body>
+</post>
+
+<post id="64978102" url="http://tumblelog.marco.org/64978102" type="photo" date-gmt="2008-12-15 15:36:03 GMT" date="Mon, 15 Dec 2008 10:36:03" unix-timestamp="1229355363">
+	<photo-caption>&lt;p&gt;Adorama&amp;#8217;s response to &lt;a href="http://tumblelog.marco.org/64878956"&gt;Adorama&amp;#8217;s 5D Mark II shadiness&lt;/a&gt;, in full blue Comic Sans glory.&lt;/p&gt;
+	</photo-caption>
+	<photo-url max-width="500">http://media.tumblr.com/bhKTvCKNAhiu1so2sOsC66FPo1_400.png</photo-url>
+	<photo-url max-width="400">http://media.tumblr.com/bhKTvCKNAhiu1so2sOsC66FPo1_400.png</photo-url>
+	<photo-url max-width="250">http://media.tumblr.com/bhKTvCKNAhiu1so2sOsC66FPo1_250.png</photo-url>
+	<photo-url max-width="100">http://media.tumblr.com/bhKTvCKNAhiu1so2sOsC66FPo1_100.png</photo-url>
+	<photo-url max-width="75">http://media.tumblr.com/bhKTvCKNAhiu1so2sOsC66FPo1_75sq.png</photo-url>
+</post>
+
+</posts></tumblr>
