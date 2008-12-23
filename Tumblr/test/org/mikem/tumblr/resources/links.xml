@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tumblr version="1.0">
+<tumblelog name="ensonik" timezone="US/Eastern" cname="abc.com" title="the higher you fly">The future you have tomorrow won't be the future you had yesterday.
+
+	<feeds>
+		<feed id="336011" url="http://mikemclean.ca/muse/feed" import-type="link-description" next-update-in-seconds="1204" title="the lower you fall the higher you'll fly" error-text="true"/>
+		<feed id="336714" url="http://feeds.delicious.com/v2/rss/ensonik?count=15" import-type="link" next-update-in-seconds="1407" title="Delicious/ensonik" error="true" error-text="true"/>
+	</feeds>
+</tumblelog>
+
+<posts start="0" total="1">
+	<post id="65974375" url="http://ensonik.tumblr.com/post/65974375" type="link" date-gmt="2008-12-21 00:07:32 GMT" date="Sat, 20 Dec 2008 19:07:32" unix-timestamp="1229818052" feed-item="http://www.rolyn.co.uk/wub.htm" from-feed-id="336714">
+		<link-text>Cool javascript effect</link-text>
+		<link-url>http://www.rolyn.co.uk/wub.htm</link-url>
+	</post>
+</posts>
+
+</tumblr>

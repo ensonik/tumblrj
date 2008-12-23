@@ -12,6 +12,10 @@ public class TumbleFeed {
 	private String title;
 	private String errorText;
 	
+	public TumbleFeed(String id) {
+		this.id = id;
+	}
+	
 	public TumbleFeed(Element node) {
 		this.id = XmlUtil.getXPathValue(node, "@id");
 		this.url = XmlUtil.getXPathValue(node, "@url");
@@ -67,5 +71,18 @@ public class TumbleFeed {
 		this.errorText = errorText;
 	}
 	
+	@Override
+	public boolean equals(Object obj) {
+		if (!(obj instanceof TumbleFeed)) {
+			return false;
+		}
+		
+		TumbleFeed feedArg = (TumbleFeed) obj;
+		if (feedArg.getId() == null || this.id == null) {
+			return false;
+		}
+		
+		return feedArg.getId().equals(this.getId());
+	}
 	
 }

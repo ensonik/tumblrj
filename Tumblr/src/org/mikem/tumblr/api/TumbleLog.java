@@ -34,10 +34,15 @@ public class TumbleLog {
 		for (Node feed : feeds) {
 			this.feeds.add(new TumbleFeed((Element) feed));
 		}
-		
-		
 	}
-	
+
+	public TumbleFeed findFeedById(String id) {
+		if (feeds == null || feeds.isEmpty()) {
+			return null;
+		}
+		
+		return this.feeds.get(this.feeds.indexOf(new TumbleFeed(id)));
+	}
 	
 	public List<TumbleFeed> getFeeds() {
 		return feeds;
