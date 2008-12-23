@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tumblr version="1.0">
+	<tumblelog name="ensonik" timezone="US/Eastern" cname="abc.com" title="the higher you fly">The future you have tomorrow won't be the future you had yesterday.
+		<feeds>
+			<feed id="336011" url="http://mikemclean.ca/muse/feed" import-type="link-description" next-update-in-seconds="1204" title="the lower you fall the higher you'll fly" error-text="true"/>
+			<feed id="336714" url="http://feeds.delicious.com/v2/rss/ensonik?count=15" import-type="link" next-update-in-seconds="1407" title="Delicious/ensonik" error="true" error-text="true"/>
+		</feeds>
+	</tumblelog>
+	<posts>
+		<post 
+			id="66329517" 
+			url="http://ensonik.tumblr.com/post/66329517" 
+			type="regular" 
+			date-gmt="2008-12-23 02:29:12 GMT" 
+			date="Mon, 22 Dec 2008 21:29:12" unix-timestamp="1229999352">
+			
+			<regular-title>Test text</regular-title>
+			<regular-body>&lt;b&gt;Test post information&lt;/b&gt;</regular-body>
+		</post>
+	</posts>
+</tumblr>

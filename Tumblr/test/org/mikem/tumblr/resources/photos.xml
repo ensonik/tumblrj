@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tumblr version="1.0">
+	<tumblelog name="ensonik" timezone="US/Eastern" cname="abc.com" title="the higher you fly">The future you have tomorrow won't be the future you had yesterday.
+		<feeds>
+			<feed id="336011" url="http://mikemclean.ca/muse/feed" import-type="link-description" next-update-in-seconds="1204" title="the lower you fall the higher you'll fly" error-text="true"/>
+			<feed id="336714" url="http://feeds.delicious.com/v2/rss/ensonik?count=15" import-type="link" next-update-in-seconds="1407" title="Delicious/ensonik" error="true" error-text="true"/>
+		</feeds>
+	</tumblelog>
+	<posts>		
+		<post 
+			id="66329950" 
+			url="http://ensonik.tumblr.com/post/66329950" 
+			type="photo" 
+			date-gmt="2008-12-23 02:32:13 GMT" 
+			date="Mon, 22 Dec 2008 21:32:13" unix-timestamp="1229999533">
+			
+			<photo-url max-width="500">http://media.tumblr.com/h2FhIRxAehthkm38nCqLRRCxo1_400.gif</photo-url>
+			<photo-url max-width="400">http://media.tumblr.com/h2FhIRxAehthkm38nCqLRRCxo1_400.gif</photo-url>
+			<photo-url max-width="250">http://media.tumblr.com/h2FhIRxAehthkm38nCqLRRCxo1_250.gif</photo-url>
+			<photo-url max-width="100">http://media.tumblr.com/h2FhIRxAehthkm38nCqLRRCxo1_100.gif</photo-url>
+			<photo-url max-width="75">http://media.tumblr.com/h2FhIRxAehthkm38nCqLRRCxo1_75sq.gif</photo-url>
+		</post>
+		
+		<post 
+			id="66329887" 
+			url="http://ensonik.tumblr.com/post/66329887" 
+			type="photo" 
+			date-gmt="2008-12-23 02:31:47 GMT" 
+			date="Mon, 22 Dec 2008 21:31:47" unix-timestamp="1229999507">
+
+			<photo-caption>Test i&lt;i&gt;mage&lt;/i&gt;</photo-caption>
+			<photo-url max-width="500">http://media.tumblr.com/h2FhIRxAehthk1uadCJ26d1Ho1_400.gif</photo-url>
+			<photo-url max-width="400">http://media.tumblr.com/h2FhIRxAehthk1uadCJ26d1Ho1_400.gif</photo-url>
+			<photo-url max-width="250">http://media.tumblr.com/h2FhIRxAehthk1uadCJ26d1Ho1_250.gif</photo-url>
+			<photo-url max-width="100">http://media.tumblr.com/h2FhIRxAehthk1uadCJ26d1Ho1_100.gif</photo-url>
+			<photo-url max-width="75">http://media.tumblr.com/h2FhIRxAehthk1uadCJ26d1Ho1_75sq.gif</photo-url>
+		</post>
+	</posts>
+</tumblr>
