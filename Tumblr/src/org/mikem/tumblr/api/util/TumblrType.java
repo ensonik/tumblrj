@@ -1,12 +1,25 @@
 package org.mikem.tumblr.api.util;
 
+import org.mikem.tumblr.api.model.ConversationPost;
+import org.mikem.tumblr.api.model.LinkPost;
+import org.mikem.tumblr.api.model.PhotoPost;
+import org.mikem.tumblr.api.model.QuotePost;
+import org.mikem.tumblr.api.model.RegularPost;
+import org.mikem.tumblr.api.model.TumblePost;
+
 public enum TumblrType {
-	REGULAR("regular"),LINK("link");
+	LINK("link", LinkPost.class),
+	CONVERSATION("conversation", ConversationPost.class),
+	QUOTE("quote", QuotePost.class),
+	REGULAR("regular", RegularPost.class),
+	PHOTO("photo", PhotoPost.class);
 	
 	String value;
+	Class<? extends TumblePost> implementer;
 
-	TumblrType(String value) {
+	TumblrType(String value, Class<? extends TumblePost> implementer) {
 		this.value = value;
+		this.implementer = implementer;
 	}
 	
 	public String getValue() {
@@ -19,6 +32,6 @@ public enum TumblrType {
 				return type;
 			}
 		}
-		throw new IllegalArgumentException("Can't bind to TumblrType from value: " + value);
+		throw new IllegalArgumentException("Can't bind to TumblrType from string value: " + value);
 	}
 }

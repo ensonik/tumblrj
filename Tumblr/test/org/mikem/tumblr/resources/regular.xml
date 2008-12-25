@@ -6,7 +6,7 @@
 			<feed id="336714" url="http://feeds.delicious.com/v2/rss/ensonik?count=15" import-type="link" next-update-in-seconds="1407" title="Delicious/ensonik" error="true" error-text="true"/>
 		</feeds>
 	</tumblelog>
-	<posts>
+	<posts start="0" total="1">
 		<post 
 			id="66329517" 
 			url="http://ensonik.tumblr.com/post/66329517" 

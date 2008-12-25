@@ -1,4 +1,4 @@
-package org.mikem.tumblr.api.read;
+package org.mikem.tumblr.api.http;
 
 import org.mikem.tumblr.api.util.TumblrType;
 
@@ -8,7 +8,6 @@ public class TumblrReadOptions {
 	private int num;
 	private String id;
 	private TumblrType type = null;
-	
 	
 	public boolean isReadPrivate() {
 		return readPrivate;
@@ -40,8 +39,5 @@ public class TumblrReadOptions {
 	public void setId(String id) {
 		this.id = id;
 	}
-	
-	// TODO: Implement filters
-	
 	
 }

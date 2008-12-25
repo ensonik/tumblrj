@@ -1,4 +1,4 @@
-package org.mikem.tumblr.api;
+package org.mikem.tumblr.api.model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +20,7 @@ public class TumbleLog {
 	private List<TumblePost> posts = new ArrayList<TumblePost>();
 	
 	@SuppressWarnings("unchecked")
-	public TumbleLog(Document document) {
+	public TumbleLog(Document document) throws Exception {
 		Element root = document.getRootElement();
 		this.name = XmlUtil.getXPathValue(root, "//tumblr/tumblelog/@name");
 		this.cname = XmlUtil.getXPathValue(root, "//tumblr/tumblelog/@cname");
@@ -31,8 +31,13 @@ public class TumbleLog {
 		this.total = XmlUtil.getXPathValueAsInteger(root, "//tumblr/posts/@total");
 		
 		List<Node> feeds = (List<Node>) root.selectNodes("//tumblr/tumblelog/feeds/feed");
-		for (Node feed : feeds) {
-			this.feeds.add(new TumbleFeed((Element) feed));
+		for (Node feedNode : feeds) {
+			this.feeds.add(new TumbleFeed((Element) feedNode));
+		}
+		
+		List<Node> posts = (List<Node>) root.selectNodes("//tumblr/posts/post");
+		for (Node postNode : posts) {
+			this.posts.add(TumblePost.createPostFromXml((Element) postNode));
 		}
 	}
 
@@ -42,6 +47,14 @@ public class TumbleLog {
 		}
 		
 		return this.feeds.get(this.feeds.indexOf(new TumbleFeed(id)));
+	}
+	
+	public TumblePost findPostById(String id) {
+		if (posts == null || posts.isEmpty()) {
+			return null;
+		}
+		
+		return this.posts.get(this.posts.indexOf(new TumblePost(id)));
 	}
 	
 	public List<TumbleFeed> getFeeds() {

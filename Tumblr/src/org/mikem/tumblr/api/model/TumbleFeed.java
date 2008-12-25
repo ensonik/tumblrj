@@ -1,4 +1,4 @@
-package org.mikem.tumblr.api;
+package org.mikem.tumblr.api.model;
 
 import org.dom4j.Element;
 import org.mikem.tumblr.api.util.XmlUtil;
@@ -21,6 +21,9 @@ public class TumbleFeed {
 		this.url = XmlUtil.getXPathValue(node, "@url");
 		this.title = XmlUtil.getXPathValue(node, "@title");
 		this.type = XmlUtil.getXPathValue(node, "@import-type");
+		this.nextUpdateInSeconds = XmlUtil.getXPathValueAsInteger(node, "@next-update-in-seconds");
+		this.errorText = XmlUtil.getXPathValue(node, "@error-text");
+		this.error = XmlUtil.getXPathValueAsBoolean(node, "@error");
 	}
 	
 	

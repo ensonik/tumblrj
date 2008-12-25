@@ -1,13 +1,20 @@
-package org.mikem.tumblr.api.util;
+package org.mikem.tumblr.api.http;
+
+import org.apache.commons.httpclient.params.HttpClientParams;
 
 
 public class TumblrConnectionOptions {
 	private String name;
 	private String email;
 	private String password;
+	private HttpClientParams httpClientParams;
 	
-	
-	
+	public HttpClientParams getHttpClientParams() {
+		return httpClientParams;
+	}
+	public void setHttpClientParams(HttpClientParams httpClientParams) {
+		this.httpClientParams = httpClientParams;
+	}
 	public String getEmail() {
 		return email;
 	}

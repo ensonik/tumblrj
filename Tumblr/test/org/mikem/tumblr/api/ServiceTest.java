@@ -3,12 +3,10 @@ package org.mikem.tumblr.api;
 import junit.framework.Assert;
 
 import org.junit.Test;
-import org.mikem.tumblr.api.TumbleFeed;
-import org.mikem.tumblr.api.TumbleLog;
-import org.mikem.tumblr.api.TumblrService;
-import org.mikem.tumblr.api.read.ITumblrReader;
-import org.mikem.tumblr.api.read.TumblrHttpReader;
-import org.mikem.tumblr.api.util.TumblrConnectionOptions;
+import org.mikem.tumblr.api.http.TumblrConnectionOptions;
+import org.mikem.tumblr.api.http.TumblrHttpReader;
+import org.mikem.tumblr.api.model.TumbleFeed;
+import org.mikem.tumblr.api.model.TumbleLog;
 
 public class ServiceTest {
 
@@ -17,7 +15,7 @@ public class ServiceTest {
 		TumblrConnectionOptions connectionOptions = new TumblrConnectionOptions();
 		connectionOptions.setName("ensonik");
 		
-		ITumblrReader reader = new TumblrHttpReader();
+		TumblrHttpReader reader = new TumblrHttpReader();
 		reader.setTumblrConnectionOptions(connectionOptions);
 		
 		TumblrService service = new TumblrService();

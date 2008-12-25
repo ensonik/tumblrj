@@ -6,7 +6,8 @@
 			<feed id="336714" url="http://feeds.delicious.com/v2/rss/ensonik?count=15" import-type="link" next-update-in-seconds="1407" title="Delicious/ensonik" error="true" error-text="true"/>
 		</feeds>
 	</tumblelog>
-	<posts>	
+	
+	<posts start="0" total="1">	
 		
 		<post 
 			id="66330060" 
@@ -17,10 +18,12 @@
 			unix-timestamp="1229999589">
 			
 			<conversation-title>Me chatting title</conversation-title>
-			<conversation-text>Dialogue!</conversation-text>
+			<conversation-text>Dialoguetext</conversation-text>
 			<conversation>
-				<line>Dialogue!</line></conversation>
-				<conversation-line deprecated="conversation-line is deprecated and will soon be removed. Use ./conversation/line.">Dialogue!</conversation-line>
+				<line>Dialogue!</line>
+				<line>Dialogue line 2</line>
+			</conversation>
+			<conversation-line deprecated="conversation-line is deprecated and will soon be removed. Use ./conversation/line.">Dialogue!</conversation-line>
 		</post>
 	
 	</posts>
