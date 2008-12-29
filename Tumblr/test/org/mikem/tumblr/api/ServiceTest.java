@@ -7,6 +7,7 @@ import org.mikem.tumblr.api.http.TumblrConnectionOptions;
 import org.mikem.tumblr.api.http.TumblrHttpReader;
 import org.mikem.tumblr.api.model.TumbleFeed;
 import org.mikem.tumblr.api.model.TumbleLog;
+import org.mikem.tumblr.api.util.TumblrJProperties;
 
 public class ServiceTest {
 
@@ -16,6 +17,9 @@ public class ServiceTest {
 		connectionOptions.setName("ensonik");
 		
 		TumblrHttpReader reader = new TumblrHttpReader();
+		
+		TumblrJProperties properties = new TumblrJProperties();
+		reader.setProperties(properties);
 		reader.setTumblrConnectionOptions(connectionOptions);
 		
 		TumblrService service = new TumblrService();

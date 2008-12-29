@@ -1,23 +1,28 @@
 package org.mikem.tumblr.api.util;
 
-import java.util.Properties;
+import org.apache.commons.configuration.ConfigurationException;
+import org.apache.commons.configuration.PropertiesConfiguration;
 
-public class TumblrJProperties extends Properties {
+public class TumblrJProperties extends PropertiesConfiguration {
 	private static final long serialVersionUID = -4582386493548577276L;
-
+	
+	public TumblrJProperties() throws ConfigurationException {
+		this.setFileName("tumblr-config.properties");
+	}
+	
 	public String getBaseUrl() {
-		return getProperty("base.url");
+		return getString("base.url");
 	}
 	
 	public String getReadPath() {
-		return getProperty("path.read");
+		return getString("path.read");
 	}
 	
 	public String getAuthenticationPath() {
-		return getProperty("path.authenticate");
+		return getString("path.authenticate");
 	}
 	
 	public String getDeletePath() {
-		return getProperty("path.delete");	
+		return getString("path.delete");	
 	}
 }

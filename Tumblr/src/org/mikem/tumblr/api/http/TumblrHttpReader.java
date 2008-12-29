@@ -2,6 +2,8 @@ package org.mikem.tumblr.api.http;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.PostMethod;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
 import org.mikem.tumblr.api.model.TumbleLog;
@@ -9,6 +11,7 @@ import org.mikem.tumblr.api.model.User;
 import org.mikem.tumblr.api.util.TumblrJProperties;
 
 public class TumblrHttpReader implements ITumblrReader {
+    private Log logger = LogFactory.getLog(TumblrHttpReader.class);
 	private TumblrConnectionOptions connectionOptions;
 	private TumblrJProperties properties;
 	
@@ -16,12 +19,26 @@ public class TumblrHttpReader implements ITumblrReader {
 		if (this.connectionOptions == null) {
 			throw new Exception("Can't connect up because reader doesn't have a configured TumblrConnectionOptions");
 		}
+
+		if (logger.isDebugEnabled()) {
+			logger.debug("Retreiving user information through http post");
+		}
 		
 		HttpClient client = setupHttpClient();
 		PostMethod post = setupPostMethod(properties.getAuthenticationPath());
+		
+		if (logger.isDebugEnabled()) {
+			logger.debug("Sending post request to: " + post.getPath());
+		}
+		
 		setAuthenticationInformation(post);
 		client.executeMethod(post);
 		String response = post.getResponseBodyAsString();
+		
+		if (logger.isTraceEnabled()) {
+			logger.trace("Received response: " + response);
+		}
+		
 		post.releaseConnection();
 		Document doc = DocumentHelper.parseText(response);
 		return new User(doc);
