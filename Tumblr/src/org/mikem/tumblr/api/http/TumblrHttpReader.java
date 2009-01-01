@@ -64,7 +64,7 @@ public class TumblrHttpReader implements ITumblrReader {
 			throw new Exception("Can't connect up because reader doesn't have a configured TumblrConnectionOptions");
 		}
 		
-	    HttpClient client = new HttpClient();
+	    HttpClient client = setupHttpClient();
         PostMethod post = setupPostMethod(properties.getReadPath());
         setReadQueryStringParams(post, readOptions);
         System.out.println(post.getParameters());

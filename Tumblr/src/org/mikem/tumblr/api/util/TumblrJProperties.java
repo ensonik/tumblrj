@@ -6,9 +6,13 @@ import org.apache.commons.configuration.PropertiesConfiguration;
 public class TumblrJProperties extends PropertiesConfiguration {
 	private static final long serialVersionUID = -4582386493548577276L;
 	
-	public TumblrJProperties() throws ConfigurationException {
-		this.setFileName("tumblrj-config.properties");
+	public TumblrJProperties(String filename) throws ConfigurationException {
+		this.setFileName(filename);
 		this.load();
+	}
+	
+	public TumblrJProperties() throws ConfigurationException {
+		this("tumblrj-config.properties");
 	}
 	
 	public String getBaseUrl() {
