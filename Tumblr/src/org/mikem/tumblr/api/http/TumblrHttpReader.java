@@ -2,6 +2,7 @@ package org.mikem.tumblr.api.http;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.PostMethod;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.dom4j.Document;
@@ -9,6 +10,7 @@ import org.dom4j.DocumentHelper;
 import org.mikem.tumblr.api.model.TumbleLog;
 import org.mikem.tumblr.api.model.User;
 import org.mikem.tumblr.api.util.TumblrJProperties;
+import org.mikem.tumblr.api.util.TumblrReadOptions;
 
 public class TumblrHttpReader implements ITumblrReader {
     private Log logger = LogFactory.getLog(TumblrHttpReader.class);
@@ -78,8 +80,7 @@ public class TumblrHttpReader implements ITumblrReader {
 	}
 	
 	private PostMethod setupPostMethod(String path) {
-		// FIXME Use char replacement from properties
-		String baseurl = "";
+		String baseurl = StringUtils.replace(properties.getBaseUrl(), "{0}", this.connectionOptions.getName());
 		return new PostMethod(baseurl + path);
 	}
 	

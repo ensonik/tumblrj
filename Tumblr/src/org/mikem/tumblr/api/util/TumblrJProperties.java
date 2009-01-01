@@ -7,7 +7,8 @@ public class TumblrJProperties extends PropertiesConfiguration {
 	private static final long serialVersionUID = -4582386493548577276L;
 	
 	public TumblrJProperties() throws ConfigurationException {
-		this.setFileName("tumblr-config.properties");
+		this.setFileName("tumblrj-config.properties");
+		this.load();
 	}
 	
 	public String getBaseUrl() {

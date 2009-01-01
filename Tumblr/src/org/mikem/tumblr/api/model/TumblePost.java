@@ -1,5 +1,6 @@
 package org.mikem.tumblr.api.model;
 
+import java.lang.reflect.Constructor;
 import java.util.Date;
 
 import org.dom4j.Element;
@@ -15,23 +16,20 @@ public class TumblePost {
 	private String feedItem;
 	private String fromFeedId;
 	
+	/**
+	 * Factory method that will create the proper type of TumblrPost based off the type
+	 * found in the xml.
+	 * 
+	 * @param node
+	 * @return
+	 * @throws Exception
+	 */
 	public static TumblePost createPostFromXml(Element node) throws Exception {
 		String xmlType = XmlUtil.getXPathValue(node, "@type");
 		TumblrType type = TumblrType.fromString(xmlType);
 		
-		if (type.equals(TumblrType.LINK)) {
-			return new LinkPost(node);
-		} else if (type.equals(TumblrType.CONVERSATION)) {
-			return new ConversationPost(node);
-		} else if (type.equals(TumblrType.QUOTE)) {
-			return new QuotePost(node);
-		} else if (type.equals(TumblrType.REGULAR)) {
-			return new RegularPost(node);
-		} else if (type.equals(TumblrType.PHOTO)) {
-			return new PhotoPost(node);
-		} else {
-			throw new IllegalArgumentException("Unrecognized type: " + xmlType);
-		}
+		Constructor<? extends TumblePost> c = type.getImplementer().getConstructor(Element.class);
+		return (TumblePost) c.newInstance(node);
 	}
 	
 	public TumblePost(String id) {

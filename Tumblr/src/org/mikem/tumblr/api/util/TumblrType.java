@@ -18,8 +18,16 @@ public enum TumblrType {
 	Class<? extends TumblePost> implementer;
 
 	TumblrType(String value, Class<? extends TumblePost> implementer) {
+		if (implementer == null) {
+			throw new IllegalArgumentException("Can't init TumblrType without an implementing class for that type");
+		}
+		
 		this.value = value;
 		this.implementer = implementer;
+	}
+	
+	public Class<? extends TumblePost> getImplementer() {
+		return this.implementer;
 	}
 	
 	public String getValue() {

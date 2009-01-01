@@ -1,6 +1,5 @@
-package org.mikem.tumblr.api.http;
+package org.mikem.tumblr.api.util;
 
-import org.mikem.tumblr.api.util.TumblrType;
 
 public class TumblrReadOptions {
 	private boolean readPrivate = false;
