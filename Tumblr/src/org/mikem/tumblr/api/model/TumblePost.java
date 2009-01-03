@@ -1,6 +1,7 @@
 package org.mikem.tumblr.api.model;
 
 import java.lang.reflect.Constructor;
+import java.text.ParseException;
 import java.util.Date;
 
 import org.dom4j.Element;
@@ -36,7 +37,7 @@ public class TumblePost {
 		this.id = id;
 	}
 	
-	public TumblePost(Element node) throws Exception {
+	public TumblePost(Element node) throws ParseException {
 		this.id = XmlUtil.getXPathValue(node, "@id");
 		this.url = XmlUtil.getXPathValue(node, "@url");
 		this.type = TumblrType.fromString(XmlUtil.getXPathValue(node, "@type"));
