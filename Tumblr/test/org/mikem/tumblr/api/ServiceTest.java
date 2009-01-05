@@ -23,8 +23,8 @@ import org.mikem.tumblr.api.util.TumblrType;
  */
 public class ServiceTest {
 	private static final String LOG_NAME = "ensonik";
-	private static final String EMAIL = "mike.mclean.2@videotron.ca";
-	private static final String PASSWORD = "nissan";
+	private static final String EMAIL = "";
+	private static final String PASSWORD = "";
 	
 	@Test
 	public void testGetUserInformation() throws Exception {
