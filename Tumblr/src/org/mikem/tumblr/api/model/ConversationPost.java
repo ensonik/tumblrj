@@ -2,6 +2,7 @@ package org.mikem.tumblr.api.model;
 
 import java.util.List;
 
+import org.apache.commons.httpclient.methods.PostMethod;
 import org.dom4j.Element;
 import org.dom4j.Node;
 import org.mikem.tumblr.api.util.XmlUtil;
@@ -24,22 +25,37 @@ public class ConversationPost extends TumblePost {
 			lines[counter++] = lineNode.getText();
 		}
 	}
-	
-	public ConversationPost(String id) {
-		super(id);
-	}
 
+	@Override
+	protected void doSetupPostParams(PostMethod post) {
+		if (this.title != null) {
+			post.addParameter("title", this.getTitle());	
+		}
+		post.addParameter("conversation", this.getText());
+	}
+	
 	public String getTitle() {
 		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	public String getText() {
 		return text;
 	}
 
+	public void setText(String text) {
+		this.text = text;
+	}
+
 	public String[] getLines() {
 		return lines;
 	}
-	
+
+	public void setLines(String[] lines) {
+		this.lines = lines;
+	}
 	
 }

@@ -2,13 +2,17 @@ package org.mikem.tumblr.api.model;
 
 import java.lang.reflect.Constructor;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import org.apache.commons.httpclient.methods.PostMethod;
 import org.dom4j.Element;
+import org.dom4j.Node;
 import org.mikem.tumblr.api.util.TumblrType;
 import org.mikem.tumblr.api.util.XmlUtil;
 
-public class TumblePost {
+public abstract class TumblePost {
 	private String id;
 	private String url;
 	private Date dateGmt;
@@ -16,6 +20,22 @@ public class TumblePost {
 	private long unixTimestamp;
 	private String feedItem;
 	private String fromFeedId;
+	private List<String> tags = new ArrayList<String>();
+	
+	
+	protected abstract void doSetupPostParams(PostMethod post);
+	
+	public void setupPostParams(PostMethod post) {
+		StringBuilder tagBuilder = new StringBuilder();
+		for (String tag : tags) {
+			tagBuilder.append(tag+",");
+		}
+		
+		post.addParameter("tags", tagBuilder.toString());
+		post.addParameter("type", this.getType().getValue());
+		
+		doSetupPostParams(post);
+	}
 	
 	/**
 	 * Factory method that will create the proper type of TumblrPost based off the type
@@ -37,6 +57,7 @@ public class TumblePost {
 		this.id = id;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public TumblePost(Element node) throws ParseException {
 		this.id = XmlUtil.getXPathValue(node, "@id");
 		this.url = XmlUtil.getXPathValue(node, "@url");
@@ -45,6 +66,11 @@ public class TumblePost {
 		this.unixTimestamp = Long.valueOf(XmlUtil.getXPathValue(node, "@unix-timestamp"));
 		this.feedItem = XmlUtil.getXPathValue(node, "@feed-item");
 		this.fromFeedId = XmlUtil.getXPathValue(node, "@from-feed-id");
+		
+		List<Node> tagNodes = (List<Node>) node.selectNodes("/tag");
+		for (Node tagNode : tagNodes) {
+			this.tags.add(tagNode.getText());
+		}
 	}
 	
 	public String getFeedItem() {

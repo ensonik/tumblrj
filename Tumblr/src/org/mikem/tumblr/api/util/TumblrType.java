@@ -6,13 +6,15 @@ import org.mikem.tumblr.api.model.PhotoPost;
 import org.mikem.tumblr.api.model.QuotePost;
 import org.mikem.tumblr.api.model.RegularPost;
 import org.mikem.tumblr.api.model.TumblePost;
+import org.mikem.tumblr.api.model.VideoPost;
 
 public enum TumblrType {
 	LINK("link", LinkPost.class),
 	CONVERSATION("conversation", ConversationPost.class),
 	QUOTE("quote", QuotePost.class),
 	REGULAR("regular", RegularPost.class),
-	PHOTO("photo", PhotoPost.class);
+	PHOTO("photo", PhotoPost.class),
+	VIDEO("video", VideoPost.class);
 	
 	String value;
 	Class<? extends TumblePost> implementer;

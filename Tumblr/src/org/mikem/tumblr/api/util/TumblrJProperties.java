@@ -27,6 +27,10 @@ public class TumblrJProperties extends PropertiesConfiguration {
 		return getString("path.authenticate");
 	}
 	
+	public String getWritePath() {
+		return getString("path.write");
+	}
+	
 	public String getDeletePath() {
 		return getString("path.delete");	
 	}

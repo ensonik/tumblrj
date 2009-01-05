@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tumblr version="1.0">
+	<tumblelog name="ensonik" timezone="US/Eastern" cname="abc.com" title="the higher you fly">The future you have tomorrow won't be the future you had yesterday.
+		<feeds>
+			<feed id="336011" url="http://mikemclean.ca/muse/feed" import-type="link-description" next-update-in-seconds="1204" title="the lower you fall the higher you'll fly" error-text="true"/>
+			<feed id="336714" url="http://feeds.delicious.com/v2/rss/ensonik?count=15" import-type="link" next-update-in-seconds="1407" title="Delicious/ensonik" error="true" error-text="true"/>
+		</feeds>
+	</tumblelog>
+	<posts start="0" total="1">
+	
+		<post id="68390729" 
+			url="http://ensonik.tumblr.com/post/68390729" 
+			type="video" date-gmt="2009-01-05 01:38:00 GMT" date="Sun, 04 Jan 2009 20:38:00" unix-timestamp="1231119480">
+			<video-caption>Java Posse live episode</video-caption>
+			<video-source>http://www.youtube.com/watch?v=n6CrBlrdz3E</video-source>
+			<video-player>
+				<object width="400" height="336"><param name="movie" value="http://www.youtube.com/v/n6CrBlrdz3E&amp;rel=0&amp;egm=0"></param><param name="wmode" value="transparent"></param><embed src="http://www.youtube.com/v/n6CrBlrdz3E&amp;rel=0&amp;egm=0" type="application/x-shockwave-flash" width="400" height="336" wmode="transparent"></embed></object>
+			</video-player>
+			<tag>java</tag>
+			<tag>programming</tag>
+		</post>
+		
+	</posts>
+</tumblr>

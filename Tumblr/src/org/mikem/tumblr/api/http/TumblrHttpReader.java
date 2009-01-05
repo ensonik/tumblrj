@@ -8,6 +8,7 @@ import org.apache.commons.logging.LogFactory;
 import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
 import org.mikem.tumblr.api.model.TumbleLog;
+import org.mikem.tumblr.api.model.TumblePost;
 import org.mikem.tumblr.api.model.User;
 import org.mikem.tumblr.api.util.TumblrJProperties;
 import org.mikem.tumblr.api.util.TumblrReadOptions;
@@ -93,6 +94,25 @@ public class TumblrHttpReader implements ITumblrReader {
         } catch (Exception e) {
         	throw new TumblrJException(e);
         }
+	}
+	
+	// FIXME Return something!
+	public void write(TumblePost tumblrPost, String email, String password) throws TumblrJException {
+		try {
+			HttpClient client = setupHttpClient();
+			PostMethod post = setupPostMethod(properties.getWritePath());
+			setAuthenticationInformation(post, email, password);
+			tumblrPost.setupPostParams(post);
+			
+        	logger.debug("Posting write request to : " + post.getURI().toString());
+			
+			client.executeMethod(post);
+			String response = post.getResponseBodyAsString();
+			
+			logger.debug("Received response for write request: " + response);
+		} catch (Exception e) {
+			throw new TumblrJException(e);
+		}
 	}
 	
 	private PostMethod setupPostMethod(String path) {

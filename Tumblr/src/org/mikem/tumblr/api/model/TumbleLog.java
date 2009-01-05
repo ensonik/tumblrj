@@ -54,7 +54,14 @@ public class TumbleLog {
 			return null;
 		}
 		
-		return this.posts.get(this.posts.indexOf(new TumblePost(id)));
+		for (TumblePost post : this.posts) {
+			if (post.getId().equals(id)) {
+				return post;
+			}
+		}
+		
+		// FIXME Yuck ...
+		return null;
 	}
 	
 	public List<TumbleFeed> getFeeds() {

@@ -12,10 +12,27 @@ import org.mikem.tumblr.api.model.QuotePost;
 import org.mikem.tumblr.api.model.RegularPost;
 import org.mikem.tumblr.api.model.TumbleFeed;
 import org.mikem.tumblr.api.model.TumbleLog;
+import org.mikem.tumblr.api.model.VideoPost;
 import org.mikem.tumblr.api.util.TumblrType;
 
 public class TumbleLogReaderTest {
 
+	@Test
+	public void readVideo() throws Exception {
+		SAXReader reader = new SAXReader();
+        Document document = reader.read("test/org/mikem/tumblr/resources/video.xml");
+        
+        TumbleLog log = new TumbleLog(document);
+    	
+        VideoPost post = (VideoPost) log.findPostById("68390729");
+
+        this.testTumbleLogBaseInfo(log);
+        Assert.assertEquals(1, log.getPosts().size());
+		
+        Assert.assertEquals(post.getCaption(), "Java Posse live episode");
+        Assert.assertEquals(post.getSource(), "http://www.youtube.com/watch?v=n6CrBlrdz3E");
+    }
+	
 	@Test
 	public void readPhoto() throws Exception {
 		SAXReader reader = new SAXReader();
