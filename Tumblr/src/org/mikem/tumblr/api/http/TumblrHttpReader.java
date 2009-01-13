@@ -10,6 +10,7 @@ import org.dom4j.DocumentHelper;
 import org.mikem.tumblr.api.model.TumbleLog;
 import org.mikem.tumblr.api.model.TumblePost;
 import org.mikem.tumblr.api.model.User;
+import org.mikem.tumblr.api.util.Credentials;
 import org.mikem.tumblr.api.util.TumblrJProperties;
 import org.mikem.tumblr.api.util.TumblrReadOptions;
 import org.mikem.tumblr.exceptions.TumblrJException;
@@ -19,7 +20,7 @@ public class TumblrHttpReader implements ITumblrReader {
 	private TumblrConnectionOptions connectionOptions;
 	private TumblrJProperties properties;
 	
-	public User getUserInformation(String email, String password) throws TumblrJException {
+	public User getUserInformation(Credentials credentials) throws TumblrJException {
 		if (this.connectionOptions == null) {
 			throw new IllegalStateException("Can't connect up because reader doesn't have a configured TumblrConnectionOptions");
 		}
@@ -27,9 +28,9 @@ public class TumblrHttpReader implements ITumblrReader {
 		try {
 			HttpClient client = setupHttpClient();
 			PostMethod post = setupPostMethod(properties.getAuthenticationPath());
-			setAuthenticationInformation(post, email, password);
+			setAuthenticationInformation(post, credentials);
 			
-			logger.debug("Posting request to get user information : " + post.getURI().toString() + " with email " + email);
+			logger.debug("Posting request to get user information : " + post.getURI().toString() + " with email " + credentials.getEmail());
 	
 			client.executeMethod(post);
 			String response = post.getResponseBodyAsString();
@@ -45,7 +46,7 @@ public class TumblrHttpReader implements ITumblrReader {
 		}
 	}
 	
-	public void delete(String postId) throws TumblrJException {
+	public void delete(String postId, Credentials credentials) throws TumblrJException {
 		if (this.connectionOptions == null) {
 			throw new IllegalStateException("Can't connect up because reader doesn't have a configured TumblrConnectionOptions");
 		}
@@ -53,7 +54,7 @@ public class TumblrHttpReader implements ITumblrReader {
 		try {
 			HttpClient client = setupHttpClient();
 			PostMethod post = setupPostMethod(properties.getDeletePath());
-			setAuthenticationInformation(post, this.connectionOptions.getEmail(), this.connectionOptions.getPassword());
+			setAuthenticationInformation(post, credentials);
 			post.addParameter("post-id", postId);
 			
 			logger.debug("Posting delete request to : " + post.getURI().toString() + " with post-id " + postId);
@@ -69,7 +70,7 @@ public class TumblrHttpReader implements ITumblrReader {
 		}
 	}
 	
-	public TumbleLog read(TumblrReadOptions readOptions) throws TumblrJException {
+	public TumbleLog read(TumblrReadOptions readOptions, Credentials credentials) throws TumblrJException {
 		if (this.connectionOptions == null) {
 			throw new IllegalStateException("Can't connect up because reader doesn't have a configured TumblrConnectionOptions");
 		}
@@ -77,7 +78,7 @@ public class TumblrHttpReader implements ITumblrReader {
         try {
     	    HttpClient client = setupHttpClient();
             PostMethod post = setupPostMethod(properties.getReadPath());
-            setPostParameters(post, readOptions);
+            setPostParameters(post, readOptions, credentials);
         	
         	logger.debug("Posting read request to : " + post.getURI().toString());
 	        
@@ -97,27 +98,38 @@ public class TumblrHttpReader implements ITumblrReader {
 	}
 	
 	// FIXME Return something!
-	public void write(TumblePost tumblrPost, String email, String password) throws TumblrJException {
+	public TumblePost write(TumblePost tumblrPost, Credentials credentials) throws TumblrJException {
 		try {
 			HttpClient client = setupHttpClient();
 			PostMethod post = setupPostMethod(properties.getWritePath());
-			setAuthenticationInformation(post, email, password);
+			setAuthenticationInformation(post, credentials);
 			tumblrPost.setupPostParams(post);
 			
         	logger.debug("Posting write request to : " + post.getURI().toString());
 			
 			client.executeMethod(post);
-			String response = post.getResponseBodyAsString();
+			String id = post.getResponseBodyAsString();
 			
-			logger.debug("Received response for write request: " + response);
+			logger.debug("Received response for write request: " + id);
+			
+			// FIXME Need to check for errors and handle them a lot better
+			
+			TumblrReadOptions readOptions = new TumblrReadOptions();
+			readOptions.setId(id);
+			readOptions.setType(tumblrPost.getType());
+			readOptions.setReadPrivate(tumblrPost.getPrivatePost());
+			return this.read(readOptions, credentials).getPosts().get(0);			
 		} catch (Exception e) {
 			throw new TumblrJException(e);
 		}
 	}
 	
-	private PostMethod setupPostMethod(String path) {
-		String baseurl = StringUtils.replace(properties.getBaseUrl(), "{0}", this.connectionOptions.getName());
-		return new PostMethod(baseurl + path);
+	private PostMethod setupPostMethod(String fullUrl) {
+		String finalUrl = fullUrl;
+		if (StringUtils.contains(fullUrl, "{0}")) {
+			finalUrl = StringUtils.replace(fullUrl, "{0}", this.connectionOptions.getName());
+		}
+		return new PostMethod(finalUrl);
 	}
 	
 	private HttpClient setupHttpClient() {
@@ -128,13 +140,13 @@ public class TumblrHttpReader implements ITumblrReader {
 	    return client;
 	}
 	
-	private void setAuthenticationInformation(PostMethod post, String email, String password) {
-		addPostParam(post, "email", email);
-		addPostParam(post, "password", password, true);
+	private void setAuthenticationInformation(PostMethod post, Credentials credentials) {
+		addPostParam(post, "email", credentials.getEmail());
+		addPostParam(post, "password", credentials.getPassword(), true);
 	}
 
 	
-	private void setPostParameters(PostMethod post, TumblrReadOptions readOptions) {
+	private void setPostParameters(PostMethod post, TumblrReadOptions readOptions, Credentials credentials) {
 		if (readOptions == null) {
 			return;
 		}
@@ -157,13 +169,13 @@ public class TumblrHttpReader implements ITumblrReader {
 			addPostParam(post, "type", readOptions.getType().getValue());
 		}
 
-		if (readOptions.isReadPrivate()) {
+		if (readOptions.isReadPrivate() && credentials != null) {
 			addPostParam(post, "private", "true");
-			setAuthenticationInformation(post, this.connectionOptions.getEmail(), this.connectionOptions.getPassword());
+			setAuthenticationInformation(post,credentials);
 		}
 	}
 	
-	private void addPostParam(PostMethod post, String paramName, String paramValue, boolean obfuscateLogValue) {
+	private void addPostParam(PostMethod post, String paramName, String paramValue, boolean obfuscateLogValue /**Yuck */) {
 		post.addParameter(paramName, paramValue);
 		logger.trace("Setting up post param : param with name " + paramName + " added with value " + (obfuscateLogValue ? "****" : paramValue));
 	}

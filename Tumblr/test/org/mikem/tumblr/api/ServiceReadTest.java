@@ -3,13 +3,9 @@ package org.mikem.tumblr.api;
 import junit.framework.Assert;
 
 import org.junit.Test;
-import org.mikem.tumblr.api.http.TumblrConnectionOptions;
-import org.mikem.tumblr.api.http.TumblrHttpReader;
 import org.mikem.tumblr.api.model.QuotePost;
 import org.mikem.tumblr.api.model.TumbleFeed;
 import org.mikem.tumblr.api.model.TumbleLog;
-import org.mikem.tumblr.api.model.User;
-import org.mikem.tumblr.api.util.TumblrJProperties;
 import org.mikem.tumblr.api.util.TumblrReadOptions;
 import org.mikem.tumblr.api.util.TumblrType;
 
@@ -21,18 +17,9 @@ import org.mikem.tumblr.api.util.TumblrType;
  * @author Mike
  *
  */
-public class ServiceTest {
-	private static final String LOG_NAME = "ensonik";
-	private static final String EMAIL = "";
-	private static final String PASSWORD = "";
-	
-	@Test
-	public void testGetUserInformation() throws Exception {
-		TumblrService service = getService(null);
-		
-		User user = service.getUserInformation(EMAIL, PASSWORD);
-		Assert.assertNotNull(user);
-	}
+public class ServiceReadTest extends BaseServiceTest {
+
+
 	
 	@Test
 	public void testReadType() throws Exception {
@@ -72,7 +59,7 @@ public class ServiceTest {
 		// Read out a chunk of 3
 		readOptions.setStart(2);
 		readOptions.setNum(3);
-		log = service.read(readOptions);
+		log = service.read(readOptions, null);
 		Assert.assertEquals(3, log.getPosts().size());
 	}
 	
@@ -96,9 +83,9 @@ public class ServiceTest {
 	@Test
 	public void testRead() throws Exception {
 		TumblrService service = getService(null);
-		TumbleLog log = service.read(null);
+		TumbleLog log = service.read();
 		
-		Assert.assertEquals(log.getName(), LOG_NAME);
+		Assert.assertEquals(log.getName(), this.configuration.getString("logname"));
 		Assert.assertNull(log.getCname());
 		Assert.assertEquals(log.getTitle(), "the higher you fly");
 		Assert.assertEquals(log.getTimezone(), "US/Eastern");
@@ -114,22 +101,6 @@ public class ServiceTest {
 		Assert.assertEquals(feed.getType(), "link");
 	}
 	
-	private TumblrService getService(TumblrConnectionOptions connectionOptions) throws Exception {
-		if (connectionOptions == null) {
-			connectionOptions = new TumblrConnectionOptions();
-			connectionOptions.setName(LOG_NAME);
-		}
-		
-		TumblrHttpReader reader = new TumblrHttpReader();
-		
-		TumblrJProperties properties = new TumblrJProperties();
-		reader.setProperties(properties);
-		reader.setTumblrConnectionOptions(connectionOptions);
-		
-		TumblrService service = new TumblrService();
-		service.setReader(reader);
-		
-		return service;
-	}
+
 	
 }

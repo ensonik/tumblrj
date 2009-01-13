@@ -17,11 +17,13 @@ public abstract class TumblePost {
 	private String url;
 	private Date dateGmt;
 	private TumblrType type;
+	private Boolean privatePost = Boolean.FALSE;
 	private long unixTimestamp;
 	private String feedItem;
 	private String fromFeedId;
 	private List<String> tags = new ArrayList<String>();
 	
+	public TumblePost() { }
 	
 	protected abstract void doSetupPostParams(PostMethod post);
 	
@@ -29,6 +31,10 @@ public abstract class TumblePost {
 		StringBuilder tagBuilder = new StringBuilder();
 		for (String tag : tags) {
 			tagBuilder.append(tag+",");
+		}
+		
+		if (this.getPrivatePost()) {
+			post.addParameter("private", "1");
 		}
 		
 		post.addParameter("tags", tagBuilder.toString());
@@ -94,7 +100,19 @@ public abstract class TumblePost {
 	public TumblrType getType() {
 		return type;
 	}
+	public void setType(TumblrType type) {
+		this.type = type;
+	}
 	
+	
+	public Boolean getPrivatePost() {
+		return privatePost;
+	}
+
+	public void setPrivatePost(Boolean privatePost) {
+		this.privatePost = privatePost;
+	}
+
 	@Override
 	public boolean equals(Object arg0) {
 		if (!(arg0 instanceof TumblePost)) {

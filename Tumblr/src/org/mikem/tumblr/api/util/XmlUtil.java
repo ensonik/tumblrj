@@ -30,12 +30,12 @@ public class XmlUtil {
 		return null;
 	}
 	
-	public static Long getXPathValueAsLong(Element document, String xpath) {
+	public static Long getXPathValueAsLong(Element document, String xpath, long defaultValue) {
 		String value = XmlUtil.getXPathValue(document, xpath);
 		if (value != null) {
 			return Long.valueOf(value);
 		}
-		return null;
+		return Long.valueOf(defaultValue);
 	}
 	
 	public static Integer getXPathValueAsInteger(Element document, String xpath) {

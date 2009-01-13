@@ -14,24 +14,20 @@ public class TumblrJProperties extends PropertiesConfiguration {
 	public TumblrJProperties() throws ConfigurationException {
 		this("tumblrj-config.properties");
 	}
-	
-	public String getBaseUrl() {
-		return getString("base.url");
-	}
-	
+
 	public String getReadPath() {
-		return getString("path.read");
+		return getString("path.read", "http://{0}.tumblr.com/api/read");
 	}
 	
 	public String getAuthenticationPath() {
-		return getString("path.authenticate");
+		return getString("path.authenticate", "http://www.tumblr.com/api/authenticate");
 	}
 	
 	public String getWritePath() {
-		return getString("path.write");
+		return getString("path.write", "http://www.tumblr.com/api/write");
 	}
 	
 	public String getDeletePath() {
-		return getString("path.delete");	
+		return getString("path.delete", "http://www.tumblr.com/api/delete");	
 	}
 }

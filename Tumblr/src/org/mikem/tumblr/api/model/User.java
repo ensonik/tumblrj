@@ -13,15 +13,17 @@ public class User {
 	private boolean canUploadAiff;
 	private boolean canUploadVideo;
 	private long maxVideoBytesUploaded;
+	private String vimeoLoginUrl;
 	private List<UserTumblelog> userTumblelogs = new ArrayList<UserTumblelog>();
 	
 	@SuppressWarnings("unchecked")
 	public User(Document document) throws Exception {
 		Element root = document.getRootElement();
-		this.canUploadVideo = XmlUtil.getXPathValueAsBoolean(root, "@can-upload-audio");
-		this.canUploadAiff = XmlUtil.getXPathValueAsBoolean(root, "@can-upload-aiff");
-		this.canUploadVideo = XmlUtil.getXPathValueAsBoolean(root, "@can-upload-video");
-		this.maxVideoBytesUploaded = XmlUtil.getXPathValueAsLong(root, "@max-video-bytes-uploaded");
+		this.canUploadVideo = XmlUtil.getXPathValueAsBoolean(root, "user/@can-upload-audio");
+		this.canUploadAiff = XmlUtil.getXPathValueAsBoolean(root, "user/@can-upload-aiff");
+		this.canUploadVideo = XmlUtil.getXPathValueAsBoolean(root, "user/@can-upload-video");
+		this.maxVideoBytesUploaded = XmlUtil.getXPathValueAsLong(root, "user/@max-video-bytes-uploaded", 0);
+		this.vimeoLoginUrl = XmlUtil.getXPathValue(root, "user/@vimeo-login-url");
 		
 		List<Node> userLogNodes = document.selectNodes("//tumblr/tumblelog");
 		for (Node userLogNode : userLogNodes) {
@@ -45,4 +47,10 @@ public class User {
 	public long getMaxVideoBytesUploaded() {
 		return maxVideoBytesUploaded;
 	}
+
+
+	public String getVimeoLoginUrl() {
+		return vimeoLoginUrl;
+	}
+	
 }
