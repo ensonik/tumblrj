@@ -35,8 +35,8 @@ public class TumblrService {
 		this.reader = reader;
 	}
 	
-	public void write(TumblePost post, Credentials credentials) {
-		reader.write(post, credentials);
+	public TumblePost write(TumblePost post, Credentials credentials) {
+		return reader.write(post, credentials);
 	}
 	
 }

@@ -13,6 +13,7 @@ import org.mikem.tumblr.api.model.User;
 import org.mikem.tumblr.api.util.Credentials;
 import org.mikem.tumblr.api.util.TumblrJProperties;
 import org.mikem.tumblr.api.util.TumblrReadOptions;
+import org.mikem.tumblr.exceptions.InvalidTumblrCredentialsExeption;
 import org.mikem.tumblr.exceptions.TumblrJException;
 
 public class TumblrHttpReader implements ITumblrReader {
@@ -23,6 +24,9 @@ public class TumblrHttpReader implements ITumblrReader {
 	public User getUserInformation(Credentials credentials) throws TumblrJException {
 		if (this.connectionOptions == null) {
 			throw new IllegalStateException("Can't connect up because reader doesn't have a configured TumblrConnectionOptions");
+		}
+		if (credentials == null || !credentials.areCredentialsValid()) {
+			throw new InvalidTumblrCredentialsExeption();
 		}
 				
 		try {
@@ -47,8 +51,14 @@ public class TumblrHttpReader implements ITumblrReader {
 	}
 	
 	public void delete(String postId, Credentials credentials) throws TumblrJException {
+		if (StringUtils.isEmpty(postId)) {
+			throw new IllegalArgumentException("Post id is null");
+		}
 		if (this.connectionOptions == null) {
 			throw new IllegalStateException("Can't connect up because reader doesn't have a configured TumblrConnectionOptions");
+		}
+		if (credentials == null || !credentials.areCredentialsValid()) {
+			throw new InvalidTumblrCredentialsExeption();
 		}
 				
 		try {
@@ -97,8 +107,14 @@ public class TumblrHttpReader implements ITumblrReader {
         }
 	}
 	
-	// FIXME Return something!
 	public TumblePost write(TumblePost tumblrPost, Credentials credentials) throws TumblrJException {
+		if (tumblrPost == null) {
+			throw new IllegalArgumentException("Post parameter is null");
+		}
+		if (credentials == null || !credentials.areCredentialsValid()) {
+			throw new InvalidTumblrCredentialsExeption();
+		}
+		
 		try {
 			HttpClient client = setupHttpClient();
 			PostMethod post = setupPostMethod(properties.getWritePath());
@@ -141,6 +157,10 @@ public class TumblrHttpReader implements ITumblrReader {
 	}
 	
 	private void setAuthenticationInformation(PostMethod post, Credentials credentials) {
+		if (credentials == null || !credentials.areCredentialsValid()) {
+			throw new InvalidTumblrCredentialsExeption();
+		}
+		
 		addPostParam(post, "email", credentials.getEmail());
 		addPostParam(post, "password", credentials.getPassword(), true);
 	}

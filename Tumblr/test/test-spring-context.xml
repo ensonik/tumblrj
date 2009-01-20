@@ -6,15 +6,34 @@
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd">
 
+ 	<bean id="applicationProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+    	<property name="locations">
+        	<list>
+            	<value>classpath:private-test-config.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="applicationConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="properties" ref="applicationProperties" />
+        <property name="ignoreUnresolvablePlaceholders" value="false" />
+    </bean>
+
+
 	<bean id="tumblrJProperties" class="org.mikem.tumblr.api.util.TumblrJProperties"/>
 
 	<bean id="connectionOptions" class="org.mikem.tumblr.api.http.TumblrConnectionOptions">
-		<property name="name" value="ensonik"/>
+		<property name="name" value="${logname}"/>
 	</bean>
 	
 	<bean id="reader" class="org.mikem.tumblr.api.http.TumblrHttpReader">
 		<property name="tumblrConnectionOptions" ref="connectionOptions"/>
 		<property name="properties" ref="tumblrJProperties"/>
+	</bean>
+	
+	<bean id="credentials" class="org.mikem.tumblr.api.util.Credentials">
+		<property name="email" value="${email}"/>
+		<property name="password" value="${password}"/>
 	</bean>
 	
 	<bean id="service" class="org.mikem.tumblr.api.TumblrService">

@@ -7,6 +7,7 @@ import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.Node;
 import org.mikem.tumblr.api.util.XmlUtil;
+import org.mikem.tumblr.exceptions.TumblrPostNotFoundException;
 
 public class TumbleLog {
 	private String name;
@@ -60,8 +61,7 @@ public class TumbleLog {
 			}
 		}
 		
-		// FIXME Yuck ...
-		return null;
+		throw new TumblrPostNotFoundException("Post with id " + id + " couldn't be found");
 	}
 	
 	public List<TumbleFeed> getFeeds() {
