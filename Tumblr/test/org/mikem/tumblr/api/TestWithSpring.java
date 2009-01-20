@@ -5,7 +5,7 @@ import junit.framework.Assert;
 import org.junit.Test;
 import org.mikem.tumblr.api.model.RegularPost;
 import org.mikem.tumblr.api.model.TumbleLog;
-import org.mikem.tumblr.api.model.TumblePost;
+import org.mikem.tumblr.api.model.User;
 import org.mikem.tumblr.api.util.Credentials;
 import org.mikem.tumblr.exceptions.InvalidTumblrCredentialsExeption;
 import org.springframework.context.ApplicationContext;
@@ -30,6 +30,17 @@ public class TestWithSpring {
 		service.write(new RegularPost(), null);
 	}
 	
+	@Test
+	public void testReadAuthenticationInformaiton() {
+		ApplicationContext context = new ClassPathXmlApplicationContext("test-spring-context.xml");
+		TumblrService service = (TumblrService) context.getBean("service");
+		Credentials credentials = (Credentials) context.getBean("credentials");
+		
+		User user = service.getUserInformation(credentials);
+		Assert.assertNotNull(user);
+		Assert.assertTrue(user.getUserTumblelogs().size() > 0);
+	}
+	
 	
 	@Test
 	public void testWrite() throws Exception {
@@ -42,7 +53,7 @@ public class TestWithSpring {
 		post.setPrivatePost(true);
 		post.setTitle("Test post title");
 		
-		TumblePost savedPost = service.write(post, credentials);
+		RegularPost savedPost = (RegularPost) service.write(post, credentials);
 	
 		Assert.assertNotNull(savedPost);
 		Assert.assertNotNull(savedPost.getId());
