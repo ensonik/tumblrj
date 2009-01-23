@@ -1,6 +1,8 @@
 package org.mikem.tumblr.api.http;
 
+import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.auth.InvalidCredentialsException;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -16,11 +18,34 @@ import org.mikem.tumblr.api.util.TumblrReadOptions;
 import org.mikem.tumblr.exceptions.InvalidTumblrCredentialsExeption;
 import org.mikem.tumblr.exceptions.TumblrJException;
 
+/**
+ * Sole implementation of the ITumblrReader interface. 
+ * 
+ * Responsible for all communication over http with Tumblr.
+ * 
+ * @author Mike
+ *
+ */
 public class TumblrHttpReader implements ITumblrReader {
     private Log logger = LogFactory.getLog(TumblrHttpReader.class);
 	private TumblrConnectionOptions connectionOptions;
-	private TumblrJProperties properties;
+	private TumblrJProperties properties = null;
 	
+	public TumblrHttpReader() {
+		try {
+			this.properties = new TumblrJProperties();
+		} catch (ConfigurationException e) {
+			throw new TumblrJException("Can't read configuration: " + e.toString(), e);
+		}
+	}
+	
+	/**
+	 * Reads the user information for the given credentials 
+	 * 
+	 * @throws IllegalStateException if the connectionOptions aren't set
+	 * @throws InvalidTumblrCredentialsExeption if the credentials passed in are null or invalid
+	 * @throws TumblrJException
+	 */
 	public User getUserInformation(Credentials credentials) throws TumblrJException {
 		if (this.connectionOptions == null) {
 			throw new IllegalStateException("Can't connect up because reader doesn't have a configured TumblrConnectionOptions");
@@ -50,6 +75,14 @@ public class TumblrHttpReader implements ITumblrReader {
 		}
 	}
 	
+	/**
+	 * Deletes a post given it's id.
+	 * 
+	 * @throws IllegalArgumentException if the postId parameter is empty
+	 * @throws IllegalStateException if the connectionOptions are null
+	 * @throws InvalidCredentialsException If the credentials are null or invalid
+	 * @throws TumblrJException
+	 */
 	public void delete(String postId, Credentials credentials) throws TumblrJException {
 		if (StringUtils.isEmpty(postId)) {
 			throw new IllegalArgumentException("Post id is null");
@@ -80,6 +113,13 @@ public class TumblrHttpReader implements ITumblrReader {
 		}
 	}
 	
+	/**
+	 * Given a TumblrReadOptions instance used for filtering, will read from a Tumblr log return a TumblLog instance 
+	 * (which contains a List of TumblePost instances).
+	 * 
+	 * @throws IllegalStateException if the connection options are null
+	 * @throws TumblrJException
+	 */
 	public TumbleLog read(TumblrReadOptions readOptions, Credentials credentials) throws TumblrJException {
 		if (this.connectionOptions == null) {
 			throw new IllegalStateException("Can't connect up because reader doesn't have a configured TumblrConnectionOptions");
@@ -107,12 +147,22 @@ public class TumblrHttpReader implements ITumblrReader {
         }
 	}
 	
+	/**
+	 * 
+	 * @throws IllegalArgumentException if the TumblePost argument is null
+	 * @throws IllegalStateException if the connectionOptions are null
+	 * @throws InvalidTumblrCredentialsExeption if the crendentials are null or invalid
+	 * @throws TumblrJException
+	 */
 	public TumblePost write(TumblePost tumblrPost, Credentials credentials) throws TumblrJException {
 		if (tumblrPost == null) {
 			throw new IllegalArgumentException("Post parameter is null");
 		}
 		if (credentials == null || !credentials.areCredentialsValid()) {
 			throw new InvalidTumblrCredentialsExeption();
+		}
+		if (this.connectionOptions == null) {
+			throw new IllegalStateException("Can't connect up because reader doesn't have a configured TumblrConnectionOptions");
 		}
 		
 		try {

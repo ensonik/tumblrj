@@ -2,6 +2,15 @@ package org.mikem.tumblr.api.util;
 
 import org.apache.commons.lang.StringUtils;
 
+/**
+ * Reprensents a users credentials on Tumblr.com. 
+ * 
+ * An instance of this object wouldn't be considered valid if the email or password 
+ * were empty.
+ * 
+ * @author Mike
+ *
+ */
 public class Credentials {
 	private String email;
 	private String password;

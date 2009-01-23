@@ -1,6 +1,14 @@
 package org.mikem.tumblr.api.util;
 
-
+/**
+ * Used to filter the result set when reading from the Tumblr api. 
+ * This filter is applied *before* hitting Tumblr. 
+ * 
+ * All values are optional and null safe.
+ * 
+ * @author Mike
+ *
+ */
 public class TumblrReadOptions {
 	private boolean readPrivate = false;
 	private int start;

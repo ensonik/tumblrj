@@ -51,11 +51,11 @@ public class ConversationPost extends TumblePost {
 	}
 
 	public String[] getLines() {
-		return lines;
+		return lines.clone();
 	}
 
 	public void setLines(String[] lines) {
-		this.lines = lines;
+		this.lines = lines.clone();
 	}
 	
 }

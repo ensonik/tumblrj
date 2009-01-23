@@ -35,7 +35,7 @@ public class PhotoPost extends TumblePost {
 			post.addParameter("caption", this.getCaption());
 		}
 		if (this.clickThroughURL != null) {
-			post.addParameter("click-through-url", this.getClickThroughURL().toString());
+			post.addParameter("click-through-url", this.getClickThroughURL());
 		}
 	}
 	

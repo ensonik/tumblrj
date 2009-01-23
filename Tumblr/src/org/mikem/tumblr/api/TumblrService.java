@@ -1,6 +1,8 @@
 package org.mikem.tumblr.api;
 
 import org.mikem.tumblr.api.http.ITumblrReader;
+import org.mikem.tumblr.api.http.TumblrConnectionOptions;
+import org.mikem.tumblr.api.http.TumblrHttpReader;
 import org.mikem.tumblr.api.model.TumbleLog;
 import org.mikem.tumblr.api.model.TumblePost;
 import org.mikem.tumblr.api.model.User;
@@ -9,23 +11,30 @@ import org.mikem.tumblr.api.util.TumblrReadOptions;
 import org.mikem.tumblr.exceptions.TumblrJException;
 
 /**
- * Service class that acts as a facade to the rest of the system. 
+ * <p>
+ * Service class that acts as a facade to the rest of the system.  This will configure
+ * all other dependant objects with no nonsense defaults. You may want to override
+ * those defaults which perfectly in your grasp!
+ * </p>
  * 
- * TumblrHttpReader an be used directly, but it might be a better idea
- * to configure and use this instead.
+ * <p>
+ * Direct non-spring usage would look something along the lines of:
+ * </p>
  * 
- * Direct usage would look something along the lines of:
- * 
- * TumblrConnectionOptions connectionOptions = new TumblrConnectionOptions();
- * connectionOptions.setName("blogname");
- * 
- * TumblrHttpReader reader = new TumblrHttpReader();
- * reader.setConnectionOptions(connectionOptions);
- * 
- * TumblrService service = new TumblrService()
- * service.setReader(reader);
- * 
+ * <pre>
+ * TumblrService service = new TumblrService("myblog");
  * service.read();
+ * </pre>
+ * 
+ * <p>
+ * With spring, something like;
+ * </p>
+ * 
+ * <pre>
+ * &lt;bean id="tumblejService" class="org.mikem.tumblr.api.TumblrService"&gt;
+ *    &lt;constructor index="0" value="myblog"/&gt;
+ * &lt;/bean&gt;
+ * </pre>
  * 
  * @author Mike
  *
@@ -36,7 +45,21 @@ public class TumblrService {
 	 * to set this variable before making any calls.
 	 */
 	private ITumblrReader reader;
+	private String blogName;
 	
+	public TumblrService(String blogName) {
+		this.blogName = blogName;
+		
+		TumblrHttpReader httpReader = new TumblrHttpReader();
+		TumblrConnectionOptions options = new TumblrConnectionOptions();
+		options.setName(blogName);
+		httpReader.setTumblrConnectionOptions(options);
+		
+		this.reader = httpReader;
+	}
+	
+	public TumblrService() { }
+
 	/**
 	 * Get user information. Equivalent to the Tumblr /api/credentials call.
 	 * 
@@ -45,6 +68,10 @@ public class TumblrService {
 	 * @throws TumblrJException
 	 */
 	public User getUserInformation(Credentials credentials) throws TumblrJException {
+		if (reader == null) {
+			throw new IllegalStateException("A reader needs to be set");
+		}
+		
 		return reader.getUserInformation(credentials);
 	}
 	
@@ -56,6 +83,10 @@ public class TumblrService {
 	 * @throws TumblrJException
 	 */
 	public void delete(String postId) throws TumblrJException {
+		if (reader == null) {
+			throw new IllegalStateException("A reader needs to be set");
+		}
+
 		reader.delete(postId, new Credentials(null, null)); // FIXME Unimplemented / untested
 	}
 	
@@ -74,6 +105,10 @@ public class TumblrService {
 	 * @throws TumblrJException
 	 */
 	public TumbleLog read(TumblrReadOptions readOptions, Credentials credentials) throws TumblrJException {
+		if (reader == null) {
+			throw new IllegalStateException("A reader needs to be set");
+		}
+		
 		return this.reader.read(readOptions, credentials);
 	}
 	
@@ -85,6 +120,10 @@ public class TumblrService {
 	 * @throws TumblrJException
 	 */
 	public TumbleLog read(TumblrReadOptions readOptions) throws TumblrJException {
+		if (reader == null) {
+			throw new IllegalStateException("A reader needs to be set");
+		}
+		
 		return this.reader.read(readOptions, null);
 	}
 
@@ -95,11 +134,11 @@ public class TumblrService {
 	 * @throws TumblrJException
 	 */
 	public TumbleLog read() throws TumblrJException {
-		return this.reader.read(null, null);
-	}
+		if (reader == null) {
+			throw new IllegalStateException("A reader needs to be set");
+		}
 
-	public void setReader(ITumblrReader reader) {
-		this.reader = reader;
+		return this.reader.read(null, null);
 	}
 
 	/**
@@ -113,7 +152,23 @@ public class TumblrService {
 	 * @return
 	 */
 	public TumblePost write(TumblePost post, Credentials credentials) {
+		if (reader == null) {
+			throw new IllegalStateException("A reader needs to be set");
+		}
+
 		return reader.write(post, credentials);
 	}
+
 	
+	public String getBlogName() {
+		return blogName;
+	}
+
+	public void setBlogName(String blogName) {
+		this.blogName = blogName;
+	}
+
+	public void setReader(ITumblrReader reader) {
+		this.reader = reader;
+	}
 }

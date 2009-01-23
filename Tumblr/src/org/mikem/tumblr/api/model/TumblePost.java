@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.httpclient.methods.PostMethod;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.dom4j.Element;
 import org.dom4j.Node;
 import org.mikem.tumblr.api.util.TumblrType;
@@ -92,7 +93,7 @@ public abstract class TumblePost {
 		return url;
 	}
 	public Date getDateGmt() {
-		return dateGmt;
+		return new Date(dateGmt.getTime());
 	}
 	public long getUnixTimestamp() {
 		return unixTimestamp;
@@ -111,6 +112,11 @@ public abstract class TumblePost {
 
 	public void setPrivatePost(Boolean privatePost) {
 		this.privatePost = privatePost;
+	}
+	
+	@Override
+	public int hashCode() {
+		return HashCodeBuilder.reflectionHashCode(this);
 	}
 
 	@Override

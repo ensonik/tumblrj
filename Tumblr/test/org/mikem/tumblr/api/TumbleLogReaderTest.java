@@ -135,8 +135,8 @@ public class TumbleLogReaderTest {
 		Assert.assertEquals(log.getTitle(), "the higher you fly");
 		Assert.assertEquals(log.getTimezone(), "US/Eastern");
 		Assert.assertTrue(log.getDescription().startsWith("The future you have "));
-		Assert.assertEquals(new Integer(1), log.getTotal());
-		Assert.assertEquals(new Integer(0), log.getStart());
+		Assert.assertEquals(Integer.valueOf(1), log.getTotal());
+		Assert.assertEquals(Integer.valueOf(0), log.getStart());
 		Assert.assertEquals(2, log.getFeeds().size());
 		
 		TumbleFeed feed = log.findFeedById("336011");

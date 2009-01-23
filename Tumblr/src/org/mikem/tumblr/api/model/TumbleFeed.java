@@ -1,5 +1,6 @@
 package org.mikem.tumblr.api.model;
 
+import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.dom4j.Element;
 import org.mikem.tumblr.api.util.XmlUtil;
 
@@ -72,6 +73,11 @@ public class TumbleFeed {
 	}
 	public void setErrorText(String errorText) {
 		this.errorText = errorText;
+	}
+	
+	@Override
+	public int hashCode() {
+		return HashCodeBuilder.reflectionHashCode(this);
 	}
 	
 	@Override

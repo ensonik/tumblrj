@@ -6,7 +6,6 @@ import org.mikem.tumblr.api.util.XmlUtil;
 public class UserTumblelog {
 	private String title;
 	private String type;
-	private String privateId;
 	private String name;
 	private String url;
 	private String avatarUrl;
@@ -23,9 +22,6 @@ public class UserTumblelog {
 	
 	public String getType() {
 		return type;
-	}
-	public String getPrivateId() {
-		return privateId;
 	}
 	public String getName() {
 		return name;

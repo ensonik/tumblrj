@@ -12,7 +12,7 @@ public class TumblrJProperties extends PropertiesConfiguration {
 	}
 	
 	public TumblrJProperties() throws ConfigurationException {
-		this("tumblrj-config.properties");
+		super("org/mikem/tumblr/api/util/default-tumblrj-config.properties");
 	}
 
 	public String getReadPath() {

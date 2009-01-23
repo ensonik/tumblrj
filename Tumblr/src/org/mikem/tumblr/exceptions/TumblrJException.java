@@ -13,4 +13,8 @@ public class TumblrJException extends RuntimeException {
 		super(message);
 	}
 	
+	public TumblrJException(String message, Exception e) {
+		super(message, e);
+	}
+	
 }

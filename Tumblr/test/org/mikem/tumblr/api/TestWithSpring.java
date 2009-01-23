@@ -14,6 +14,15 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class TestWithSpring {
 
 	@Test
+	public void testReadWithDefaultConfig() throws Exception {
+		ApplicationContext context = new ClassPathXmlApplicationContext("test-spring-context.xml");
+		TumblrService service = (TumblrService) context.getBean("easyService");
+		TumbleLog log = service.read();
+		Assert.assertNotNull(log);
+		Assert.assertTrue(log.getPosts().size() > 0);
+	}
+	
+	@Test
 	public void testRead() throws Exception {
 		ApplicationContext context = new ClassPathXmlApplicationContext("test-spring-context.xml");
 		TumblrService service = (TumblrService) context.getBean("service");

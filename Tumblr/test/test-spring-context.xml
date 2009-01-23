@@ -39,5 +39,8 @@
 	<bean id="service" class="org.mikem.tumblr.api.TumblrService">
 		<property name="reader" ref="reader"/>
 	</bean>
-
+	
+	<bean id="easyService" class="org.mikem.tumblr.api.TumblrService">
+		<constructor-arg index="0" value="${logname}"/>
+	</bean>
 </beans>
