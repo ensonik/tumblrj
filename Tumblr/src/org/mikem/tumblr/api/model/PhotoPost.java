@@ -7,6 +7,7 @@ import java.util.Map;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.dom4j.Element;
 import org.dom4j.Node;
+import org.mikem.tumblr.api.util.TumblrType;
 import org.mikem.tumblr.api.util.XmlUtil;
 
 public class PhotoPost extends TumblePost {
@@ -14,6 +15,10 @@ public class PhotoPost extends TumblePost {
 	private Map<Integer, Photo> photos = new HashMap<Integer, Photo>();
 	private String sourceUrl;
 	private String clickThroughURL;
+	
+	public PhotoPost() {
+		this.setType(TumblrType.PHOTO);
+	}
 	
 	@SuppressWarnings("unchecked")
 	public PhotoPost(Element node) throws Exception {
@@ -54,11 +59,7 @@ public class PhotoPost extends TumblePost {
 	public Map<Integer, Photo> getPhotos() {
 		return photos;
 	}
-
-	public void setPhotos(Map<Integer, Photo> photos) {
-		this.photos = photos;
-	}
-
+	
 	public String getSourceUrl() {
 		return sourceUrl;
 	}

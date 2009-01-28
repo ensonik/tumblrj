@@ -5,12 +5,17 @@ import java.util.List;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.dom4j.Element;
 import org.dom4j.Node;
+import org.mikem.tumblr.api.util.TumblrType;
 import org.mikem.tumblr.api.util.XmlUtil;
 
 public class ConversationPost extends TumblePost {
 	private String title;
 	private String text;
 	private String[] lines;
+	
+	public ConversationPost() {
+		this.setType(TumblrType.CONVERSATION);
+	}
 	
 	@SuppressWarnings("unchecked")
 	public ConversationPost(Element node) throws Exception {
@@ -31,7 +36,7 @@ public class ConversationPost extends TumblePost {
 		if (this.title != null) {
 			post.addParameter("title", this.getTitle());	
 		}
-		post.addParameter("conversation", this.getText());
+		post.addParameter("conversation", this.getText());	
 	}
 	
 	public String getTitle() {
@@ -54,8 +59,5 @@ public class ConversationPost extends TumblePost {
 		return lines.clone();
 	}
 
-	public void setLines(String[] lines) {
-		this.lines = lines.clone();
-	}
 	
 }

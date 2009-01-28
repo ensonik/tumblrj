@@ -2,11 +2,16 @@ package org.mikem.tumblr.api.model;
 
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.dom4j.Element;
+import org.mikem.tumblr.api.util.TumblrType;
 import org.mikem.tumblr.api.util.XmlUtil;
 
 public class QuotePost extends TumblePost {
 	private String text;
 	private String source;
+	
+	public QuotePost() {
+		this.setType(TumblrType.QUOTE);
+	}
 	
 	public QuotePost(Element node) throws Exception {
 		super(node);
