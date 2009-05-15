@@ -20,27 +20,27 @@
     </bean>
 
 
-	<bean id="tumblrJProperties" class="org.mikem.tumblr.api.util.TumblrJProperties"/>
+	<bean id="tumblrJProperties" class="org.mikem.tumblrj.api.util.TumblrJProperties"/>
 
-	<bean id="connectionOptions" class="org.mikem.tumblr.api.http.TumblrConnectionOptions">
+	<bean id="connectionOptions" class="org.mikem.tumblrj.api.http.TumblrConnectionOptions">
 		<property name="name" value="${logname}"/>
 	</bean>
 	
-	<bean id="reader" class="org.mikem.tumblr.api.http.TumblrHttpReader">
+	<bean id="reader" class="org.mikem.tumblrj.api.http.TumblrHttpReader">
 		<property name="tumblrConnectionOptions" ref="connectionOptions"/>
 		<property name="properties" ref="tumblrJProperties"/>
 	</bean>
 	
-	<bean id="credentials" class="org.mikem.tumblr.api.util.Credentials">
+	<bean id="credentials" class="org.mikem.tumblrj.api.util.Credentials">
 		<property name="email" value="${email}"/>
 		<property name="password" value="${password}"/>
 	</bean>
 	
-	<bean id="service" class="org.mikem.tumblr.api.TumblrService">
+	<bean id="service" class="org.mikem.tumblrj.api.TumblrJService">
 		<property name="reader" ref="reader"/>
 	</bean>
 	
-	<bean id="easyService" class="org.mikem.tumblr.api.TumblrService">
+	<bean id="easyService" class="org.mikem.tumblrj.api.TumblrJService">
 		<constructor-arg index="0" value="${logname}"/>
 	</bean>
 </beans>
